@@ -12,30 +12,23 @@ import {
     Divider,
     CardFooter,
     Button,
-    Input,
-    InputGroup,
-    InputLeftElement,
-    Icon,
-    Select,
 } from '@chakra-ui/react';
-import { SearchIcon } from '@chakra-ui/icons';
-import ReactPaginate from 'react-paginate';
-import './Home.css';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
-    const [propertyData, setPropertyData] = useState([]);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [selectedBedrooms, setSelectedBedrooms] = useState('');
-    const [currentPage, setCurrentPage] = useState(0);
-    const itemsPerPage = 9;
-
+    const [propertyData, setPropertyData] = useState({
+        cheapest: [],
+        christmas_deals: [],
+        luxury: [],
+    });
+    console.log(propertyData)
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    'https://gist.githubusercontent.com/mobnad/88c9d7137e06bcae1134d691462c3278/raw/ec832661ddc9e12ec3ae962326fe291f6c93a5d2/properties.json'
+                    'https://gist.githubusercontent.com/mobnad/7b4918ef1155376165148dc687149c76/raw/69dbf4bdf2bae72a23d9ea816c1f756baeac1d65/home_properties.json'
                 );
-                setPropertyData(response.data);
+                setPropertyData(response.data[0]);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -44,107 +37,145 @@ const Home = () => {
         fetchData();
     }, []);
 
-    const handleSearchChange = (event) => {
-        setSearchQuery(event.target.value);
-        setCurrentPage(0);
-    };
-
-    const handleBedroomsChange = (event) => {
-        setSelectedBedrooms(event.target.value === '' ? '' : parseInt(event.target.value, 10));
-        setCurrentPage(0);
-    };
-
-    const filteredProperties = propertyData.filter(
-        (property) =>
-            property.location.toLowerCase().includes(searchQuery.toLowerCase()) &&
-            (selectedBedrooms === '' || property.bedroom === selectedBedrooms)
-    );
-
-    const pageCount = Math.ceil(filteredProperties.length / itemsPerPage);
-
-    const handlePageClick = (data) => {
-        setCurrentPage(data.selected);
-    };
-
-    const startIndex = currentPage * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const currentProperties = filteredProperties.slice(startIndex, endIndex);
-
-    const bedroomOptions = [1, 2, 3, 0]; // 0 represents 'studio'
-
     return (
         <div>
-            <InputGroup mb='4'>
-                <InputLeftElement
-                    pointerEvents='none'
-                    children={<Icon as={SearchIcon} color='gray.300' />}
-                />
-                <Input
-                    placeholder='Search by location...'
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                />
-            </InputGroup>
+            <section>
+                <Heading as="h2" size="lg" mb="4">
+                    Cheapest Properties
+                </Heading>
+                {propertyData.cheapest && propertyData.cheapest.length > 0 ? (
+                    <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing='4'>
+                        {propertyData.cheapest.map((property, index) => (
+                            <Box key={index}>
+                                <Card maxW='sm'>
+                                    <CardBody>
+                                        <Image
+                                            src={property.image_link}
+                                            alt={`Property ${index}`}
+                                            borderRadius='lg'
+                                            height={'225px'}
+                                        />
+                                        <Stack mt='6' spacing='3'>
+                                            <Heading size='md'>{property.listing_title}</Heading>
+                                            <Text>{property.location}</Text>
+                                            <Text color='blue.600' fontSize='2xl'>
+                                                {property.listing_price_perweek}
+                                            </Text>
+                                        </Stack>
+                                    </CardBody>
+                                    <Divider />
+                                    <CardFooter
+                                        display='flex'
+                                        justifyContent='center'
+                                        alignItems='center'
+                                        height='60px'
+                                    >
+                                        <Link to={`/properties/${property.id}`}>
+                                            <Button variant='solid' colorScheme='blue'>
+                                                View details
+                                            </Button>
+                                        </Link>
+                                    </CardFooter>
+                                </Card>
+                            </Box>
+                        ))}
+                    </SimpleGrid>
+                ) : (
+                    <p>No cheapest properties available.</p>
+                )}
+            </section>
 
-            <Select
-                placeholder='Filter by Bedrooms'
-                value={selectedBedrooms}
-                onChange={handleBedroomsChange}
-                mb='4'
-            >
-                {bedroomOptions.map((option, index) => (
-                    <option key={index} value={option}>
-                        {option === 0 ? 'Studio' : `${option} Bed`}
-                    </option>
-                ))}
-            </Select>
+            <section>
+                <Heading as="h2" size="lg" my="4">
+                    Christmas Deals
+                </Heading>
+                {propertyData.christmas_deals && propertyData.christmas_deals.length > 0 ? (
+                    <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing='4'>
+                        {propertyData.christmas_deals.map((property, index) => (
+                            <Box key={index}>
+                                <Card maxW='sm'>
+                                    <CardBody>
+                                        <Image
+                                            src={property.image_link}
+                                            alt={`Property ${index}`}
+                                            borderRadius='lg'
+                                            height={'225px'}
+                                        />
+                                        <Stack mt='6' spacing='3'>
+                                            <Heading size='md'>{property.listing_title}</Heading>
+                                            <Text>{property.location}</Text>
+                                            <Text color='blue.600' fontSize='2xl'>
+                                                {property.listing_price_perweek}
+                                            </Text>
+                                        </Stack>
+                                    </CardBody>
+                                    <Divider />
+                                    <CardFooter
+                                        display='flex'
+                                        justifyContent='center'
+                                        alignItems='center'
+                                        height='60px'
+                                    >
+                                        <Link to={`/properties/${property.id}`}>
+                                            <Button variant='solid' colorScheme='blue'>
+                                                View details
+                                            </Button>
+                                        </Link>
+                                    </CardFooter>
+                                </Card>
+                            </Box>
+                        ))}
+                    </SimpleGrid>
+                ) : (
+                    <p>No Christmas deals available.</p>
+                )}
+            </section>
 
-            <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing='4'>
-                {currentProperties.map((property, index) => (
-                    <Box key={index}>
-                        <Card maxW='sm'>
-                            <CardBody>
-                                <Image
-                                    src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-                                    alt={`Property ${index}`}
-                                    borderRadius='lg'
-                                />
-                                <Stack mt='6' spacing='3'>
-                                    <Heading size='md'>{property.listing_title}</Heading>
-                                    <Text>{property.location}</Text>
-                                    <Text color='blue.600' fontSize='2xl'>
-                                        {property.listing_price_perweek}
-                                    </Text>
-                                </Stack>
-                            </CardBody>
-                            <Divider />
-                            <CardFooter
-                                display='flex'
-                                justifyContent='center'
-                                alignItems='center'
-                                height='60px'
-                            >
-                                <Button variant='solid' colorScheme='blue'>
-                                    View details
-                                </Button>
-                            </CardFooter>
-                        </Card>
-                    </Box>
-                ))}
-            </SimpleGrid>
-
-            <ReactPaginate
-                breakLabel='...'
-                nextLabel='next >'
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={5}
-                pageCount={pageCount}
-                previousLabel='< previous'
-                marginPagesDisplayed={2}
-                containerClassName='pagination'
-                subContainerClassName='pages pagination'
-                activeClassName='active'
-            />
+            <section>
+                <Heading as="h2" size="lg" my="4">
+                    Luxury Properties
+                </Heading>
+                {propertyData.luxury && propertyData.luxury.length > 0 ? (
+                    <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing='4'>
+                        {propertyData.luxury.map((property, index) => (
+                            <Box key={index}>
+                                <Card maxW='sm'>
+                                    <CardBody>
+                                        <Image
+                                            src={property.image_link}
+                                            alt={`Property ${index}`}
+                                            borderRadius='lg'
+                                            height={'225px'}
+                                        />
+                                        <Stack mt='6' spacing='3'>
+                                            <Heading size='md'>{property.listing_title}</Heading>
+                                            <Text>{property.location}</Text>
+                                            <Text color='blue.600' fontSize='2xl'>
+                                                {property.listing_price_perweek}
+                                            </Text>
+                                        </Stack>
+                                    </CardBody>
+                                    <Divider />
+                                    <CardFooter
+                                        display='flex'
+                                        justifyContent='center'
+                                        alignItems='center'
+                                        height='60px'
+                                    >
+                                        <Link to={`/properties/${property.id}`}>
+                                            <Button variant='solid' colorScheme='blue'>
+                                                View details
+                                            </Button>
+                                        </Link>
+                                    </CardFooter>
+                                </Card>
+                            </Box>
+                        ))}
+                    </SimpleGrid>
+                ) : (
+                    <p>No luxury properties available.</p>
+                )}
+            </section>
         </div>
     );
 };
