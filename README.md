@@ -8,7 +8,7 @@
 - CONTACT US 
 - ABOUT US 
 # OVERVIEW 
-The website for Elite Properties is designed to be both aesthetically pleasing and easy to use. Along with viewing property details and photos, visitors can also ask questions about their interests and access an extensive listing of exclusive homes. i have used chakra UI to create this website . the search filter has been embedded on the website as well to filter out different requirements based on the user needs based on the location , pricings and many other features. the properties page has got all the property listings with all the details of the properties individually. the website even got a contact us page where the user can contacts us regarding any enquiery and the website even has another form where the user can fill it to actually list his/her property on our website.  
+The website for Elite Properties is designed to be both aesthetically pleasing and easy to use. Along with viewing property details and photos, visitors can also ask questions about their interests and access an extensive listing of exclusive homes. i have used chakra UI to create some parts of this website . the search filter has been embedded on the website as well to filter out different requirements based on the user needs based on the location , pricings and many other factors.The properties page has got all the property listings with all the details of the properties individually. the website even got a contact us page where the user can contacts us regarding any enquiery and the website even has another form where the user can fill it to actually list his/her property on our website.  
 # FEATURES 
 1. property listing
 2. property details
@@ -21,7 +21,12 @@ The website for Elite Properties is designed to be both aesthetically pleasing a
 - initially the home page was supposed to be page with 9 cards in it but then to make it look different from the properties page i separated the properties with some headings such as christmas deals, cheap properties etc.
 - the website is responsive but i wouldnt say a 100 percent but almost 90 percent its responsive.
 - the chakra ui was not so user friendly while creating the website as most of the stuff was paid .
-- i wanted to create heading with diffrent font style on the home page to make it look appealing but due to the time constraints couldnt really work on it 
+- i wanted to create heading with different font style on the home page to make it look appealing but due to the time constraints couldnt really work on it.
+
+
+#citation
+- used this link from chakra ui to create the nav bar - https://codesandbox.io/p/sandbox/navbar-chakraui-b22b7?file=%2Fsrc%2Fcrown.svg
+
  
 
 
