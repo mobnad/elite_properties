@@ -12,6 +12,7 @@ import {
     Divider,
     CardFooter,
     Button,
+    Center
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
@@ -38,6 +39,7 @@ const Home = () => {
     }, []);
 
     return (
+        <Center>
         <div>
             <section>
                 <Heading as="h2" size="lg" mb="4">
@@ -177,6 +179,7 @@ const Home = () => {
                 )}
             </section>
         </div>
+        </Center>
     );
 };
 

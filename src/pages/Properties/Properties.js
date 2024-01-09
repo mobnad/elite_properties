@@ -17,6 +17,7 @@ import {
     InputLeftElement,
     Icon,
     Select,
+    Center
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import ReactPaginate from 'react-paginate';
@@ -75,6 +76,7 @@ const Properties = () => {
     const bedroomOptions = [1, 2, 3, 0]; // 0 represents 'studio'
 
     return (
+        <Center>
         <div>
             <InputGroup mb='4'>
                 <InputLeftElement
@@ -150,6 +152,7 @@ const Properties = () => {
                 activeClassName='active'
             />
         </div>
+        </Center>
     );
 };
 
