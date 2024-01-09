@@ -24,10 +24,10 @@ The website for Elite Properties is designed to be both aesthetically pleasing a
 - i wanted to create heading with different font style on the home page to make it look appealing but due to the time constraints couldnt really work on it.
 
 
-#citation
+# Citation
 - used this link from chakra ui to create the nav bar - https://codesandbox.io/p/sandbox/navbar-chakraui-b22b7?file=%2Fsrc%2Fcrown.svg
 
- 
+# website url - https://eliteproperty.netlify.app/
 
 
 
